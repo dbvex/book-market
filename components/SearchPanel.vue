@@ -1,104 +1,76 @@
 <template>
-  <div class="app-panel">
-    <div class="item">
-
-      <ToggleButtons
-          :buttons="totalPages"
-          :active="currentPage"
-          @select="catalogStore.setActiveStep"
+  <div class="search-panel">
+    <div class="search-panel__field">
+      <input
+        class="app-input"
+        type="text"
+        v-model="catalogStore.searchQuery"
+        placeholder="Search by title, author..."
       />
+      <p class="search-hint" v-if="!catalogStore.isLoading">
+        {{ totalCount }} {{ totalCount === 1 ? 'book' : 'books' }} found
+      </p>
     </div>
-    <div class="item">
-      <input class="app-input" type="text" v-model="catalogStore.searchQuery" placeholder="Search...">
-    </div>
-    <div class="item">
-      <ToggleButtons
-          :buttons="TYPE_LAYOUT_LISTS"
-          :active="activeTypeLayout"
-          @select="catalogStore.setTypeLayout"
-      />
-    </div>
-
+    <LayoutToggle v-model="layout" />
   </div>
 </template>
+
 <script lang="ts" setup>
-import ToggleButtons from '@/components/buttons/toggleButtons/ToggleButtons.vue'
-import {useCatalogStore} from "~/store/catalog";
-import {computed} from "vue";
-import {TypeLayout} from "~/store/interface";
+import LayoutToggle from '~/components/LayoutToggle.vue';
+import { useCatalogStore } from '~/store/catalog';
+import { TypeLayout } from '~/store/interface';
 
 const catalogStore = useCatalogStore();
 
-const TYPE_LAYOUT_LISTS = [
-  {
-    text: 'Grid',
-    value: TypeLayout.Grid
-  },
-  {
-    text: 'List',
-    value: TypeLayout.List
-  },
-]
+const totalCount = computed(() => catalogStore.items?.length ?? 0);
 
-const activeTypeLayout = computed(() => catalogStore.activeTypeLayout)
-const currentPage = computed(() => catalogStore.currentPage)
-const perPage = computed(() => catalogStore.perPage)
-const totalPages = computed(() => {
-  const count = Math.ceil(catalogStore.items?.length / perPage.value)
-  const res: any[] = []
-  for (let i = 1; i <= count; i++) {
-    res.push({
-      text: String(i),
-      value: i,
-    })
-  }
-  return res
-
-})
-
+const layout = computed({
+  get: () => catalogStore.activeTypeLayout ?? TypeLayout.Grid,
+  set: (val: TypeLayout) => catalogStore.setTypeLayout(val),
+});
 </script>
+
 <style lang="scss" scoped>
+.search-panel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 0 8px;
+}
+
+.search-panel__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
 .app-input {
   width: 100%;
-  max-width: 400px;
   padding: $input-padding;
   border: 2px solid $input-border-color;
   border-radius: $input-border-radius;
   background-color: $input-background-color;
-  font-size: 16px;
-  color: #333;
+  font-size: 15px;
+  color: $text;
   outline: none;
-  transition: all 0.3s ease;
+  transition: border-color var(--transition), box-shadow var(--transition);
 
-  &:focus {
+  &:focus,
+  &:focus-visible {
     border-color: $input-focus-border-color;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   }
 
   &::placeholder {
     color: $input-placeholder-color;
-    font-style: italic;
-  }
-
-  &:hover {
-    border-color: $input-border-color;
-  }
-
-  &:focus-visible {
-    border-color: $input-focus-border-color;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
   }
 }
 
-.app-panel {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 10px;
-}
-
-.item {
-  padding: 20px;
-  text-align: center;
+.search-hint {
+  font-size: 0.78rem;
+  color: $text-secondary;
+  margin: 0;
+  padding-left: 4px;
 }
 </style>

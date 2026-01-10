@@ -1,32 +1,43 @@
 <template>
-  <div>
+  <div class="page">
     <SearchPanel />
-    <p v-if="loading">Загрузка...</p>
-    <pre>{{ data }}</pre>
-    <pre>{{ error }}</pre>
-    <pre>{{ loading }}</pre>
     <CatalogList />
+    <AppPagination
+      v-if="!catalogStore.isLoading && totalPages > 1"
+      :total-pages="totalPages"
+      :current-page="catalogStore.currentPage"
+      @change="catalogStore.setActiveStep"
+    />
   </div>
 </template>
+
 <script setup lang="ts">
 import { useCatalogStore } from '@/store/catalog';
-import SearchPanel from "~/components/SearchPanel.vue";
-// import { useFetchData } from '@/composables/useFetchData';
-//
-// const { data, error, loading, fetchData } = useFetchData();
-
+import SearchPanel from '~/components/SearchPanel.vue';
+import AppPagination from '~/components/AppPagination.vue';
 
 const catalogStore = useCatalogStore();
 
-onMounted(
-    // async () => {
-    //   await fetchData()
-    // }
-    async () => {
-      await catalogStore.fetchBooks()
-    }
-)
-</script>
-<style scoped lang="scss">
+const totalPages = computed(() =>
+  Math.ceil((catalogStore.items?.length ?? 0) / catalogStore.perPage)
+);
 
+await useAsyncData('catalog-books', () => catalogStore.fetchBooks());
+
+let searchTimer: ReturnType<typeof setTimeout>;
+watch(() => catalogStore.searchQuery, (query) => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    catalogStore.currentPage = 1;
+    catalogStore.fetchBooks(query || 'Nuxt');
+  }, 400);
+});
+</script>
+
+<style scoped lang="scss">
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
 </style>

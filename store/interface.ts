@@ -2,15 +2,19 @@ export enum TypeLayout {
   Grid,
   List
 }
+
 export interface IndustryIdentifiersInterface {
   type: string
   identifier: string
 }
+
 export interface IVolumeInfo {
   title: string
-  subtitle: string
+  subtitle?: string
   authors: Array<string>
+  publisher?: string
   publishedDate: string
+  description?: string
   industryIdentifiers: IndustryIdentifiersInterface[]
   readingModes: {
     text: boolean
@@ -18,6 +22,9 @@ export interface IVolumeInfo {
   }
   pageCount: number
   printType: string
+  categories?: string[]
+  averageRating?: number
+  ratingsCount?: number
   maturityRating: string
   allowAnonLogging: boolean
   contentVersion: string
@@ -25,34 +32,40 @@ export interface IVolumeInfo {
     containsEpubBubbles: false
     containsImageBubbles: false
   }
-  imageLinks: {
-    smallThumbnail: string
-    thumbnail: string
+  imageLinks?: {
+    smallThumbnail?: string
+    thumbnail?: string
+    small?: string
+    medium?: string
+    large?: string
+    extraLarge?: string
   }
   language: string
   previewLink: string
   infoLink: string
   canonicalVolumeLink: string
 }
+
 export interface IAccessInfo {
   country: string
   viewability: string
-  embeddable: true
-  publicDomain: true
+  embeddable: boolean
+  publicDomain: boolean
   textToSpeechPermission: string
   epub: {
     isAvailable: boolean
-    downloadLink: string
+    downloadLink?: string
   }
   pdf: {
     isAvailable: boolean
+    downloadLink?: string
   }
   webReaderLink: string
   accessViewStatus: string
   quoteSharingAllowed: boolean
 }
+
 export interface IBookApi {
-  //
   kind: string
   id: string
   etag: string
@@ -62,7 +75,9 @@ export interface IBookApi {
     country: string
     saleability: string
     isEbook: boolean
-    buyLink: string
+    buyLink?: string
+    listPrice?: { amount: number; currencyCode: string }
+    retailPrice?: { amount: number; currencyCode: string }
   }
   accessInfo: IAccessInfo
 }

@@ -1,52 +1,42 @@
 @use 'sass:color';
-/* Общие переменные для сайта */
-$font-family: 'Arial', sans-serif;
 
+// === SCSS Variables ===
+$font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$text-color: #333;
-$background-color: #fff;
+// Colors
+$primary:          #2563eb;
+$primary-hover:    #1d4ed8;
+$secondary:        #2ecc71;
+$accent:           #f59e0b;
+$text:             #0f172a;
+$text-secondary:   #64748b;
+$background:       #f1f5f9;
+$surface:          #ffffff;
+$border:           #e2e8f0;
+$light-text:       #ffffff;
+$white:            #ffffff;
 
-$primary-color-dark: #1a73e8;
-$secondary-color-dark: #495057;
-$text-color-dark: #e1e1e1;
+// Legacy aliases
+$primary-color:         $primary;
+$secondary-color:       #6c757d;
+$text-color:            $text;
+$background-color:      $background;
+$primary-color-dark:    #1a73e8;
+$secondary-color-dark:  #495057;
+$text-color-dark:       #e1e1e1;
 $background-color-dark: #121212;
 
-//_____________________
-$primary: #3498db;
-$secondary: #2ecc71;
-$accent: #f39c12;
-$text: #333;
-$background: #fcfced;
-$light-text: #f1f2eb;
-$white: #ffffff;
+// Misc
+$base-font-size:  16px;
+$border-radius:   8px;
 
-$base-font-size: 16px;
+// Inputs
+$input-border-color:       $border;
+$input-focus-border-color: $primary;
+$input-placeholder-color:  #94a3b8;
+$input-background-color:   $surface;
+$input-border-radius:      10px;
+$input-padding:            12px 20px;
 
-$border-radius: 4px;
-
-
-:root {
-  --m: 0.5rem;
-  --xm: 0.8rem;
-  --s: 0.25rem;
-  --l: 1rem;
-}
-
-.h1 {
-  font-size: var(--xm);
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-// inputs
-$input-border-color: #ddd;
-$input-focus-border-color: #3498db;
-$input-placeholder-color: #aaa;
-$input-background-color: #fff;
-$input-border-radius: 8px;
-$input-padding: 12px 20px;
-
-// buttons
-$light-text: #ffffff;
-$button-hover: rgba(52, 152, 219, 0.8);
+// Buttons
+$button-hover: $primary-hover;

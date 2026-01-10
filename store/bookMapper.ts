@@ -5,7 +5,7 @@ const DEFAULT_IMG_URL = 'http://books.google.com/books/content?id=6bRrNbLHyrQC&p
 const getAuthors = (authors: string[] | null) =>
   authors && authors.join(", ") || "Unknown";
 const getImgUrl = (url: string | null) => url || DEFAULT_IMG_URL
-export const bookMapper = (books: IBookApi[]): IBook => {
+export const bookMapper = (books: IBookApi[]): IBook[] => {
   return books.map(book => ({
     id: book.id,
     authors: getAuthors(book.volumeInfo.authors),
