@@ -28,6 +28,7 @@ jobs:
       - name: Generate static site
         env:
           VITE_BASE_URL: https://www.googleapis.com/books/v1/
+          VITE_GOOGLE_BOOKS_API_KEY: ${{ secrets.VITE_GOOGLE_BOOKS_API_KEY }}
         run: npm run generate
 
       # Step 5: deploy on gh-pages
