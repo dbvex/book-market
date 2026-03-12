@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/book-market/',
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxt/eslint'],
   css: ['~/assets/styles/global.scss'],
   vite: {
     css: {

@@ -5,7 +5,9 @@
     </div>
     <div class="catalog-item__body">
       <div class="catalog-item__content">
+        <!-- eslint-disable-next-line vue/no-v-html -- safe: query is regex-escaped before inject -->
         <h3 class="catalog-item__title" v-html="highlightText(item.title, searchQuery)"></h3>
+        <!-- eslint-disable-next-line vue/no-v-html -- safe: query is regex-escaped before inject -->
         <p class="catalog-item__author" v-html="highlightText(item.authors, searchQuery)"></p>
         <div class="catalog-item__meta">
           <span v-if="item.date" class="catalog-item__tag">{{ formatYear(item.date) }}</span>
