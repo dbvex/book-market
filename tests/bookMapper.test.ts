@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { bookMapper } from '../store/bookMapper';
-import type { IBookApi } from '../store/interface';
+import { bookMapper } from '../stores/bookMapper';
+import type { IBookApi } from '../types/book';
 
 const mockBookApi: IBookApi = {
   kind: 'books#volume',

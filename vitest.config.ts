@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       '~': resolve(__dirname, '.'),
       '@': resolve(__dirname, '.'),
+      '#shared/api': resolve(__dirname, './shared/api'),
     },
   },
 });
