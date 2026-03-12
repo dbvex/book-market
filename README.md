@@ -7,7 +7,7 @@ Online bookstore catalog built with Nuxt 3, Vue 3, TypeScript and Pinia.
 [![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D)](https://vuejs.org/)
 [![VueUse](https://img.shields.io/badge/VueUse-11.x-41B883)](https://vueuse.org/)
 
-**[Live Demo →](https://doletbizhev.github.io/book-market/)**
+**[Live Demo →](https://bizhev.github.io/book-market/)**
 
 ---
 
