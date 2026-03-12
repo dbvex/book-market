@@ -33,7 +33,7 @@ Online bookstore catalog built with Nuxt 3, Vue 3, TypeScript and Pinia.
 | HTTP | Axios with base URL config |
 | Testing | Vitest + @pinia/testing — 17 unit tests |
 | Build | Vite (via Nuxt) |
-| Deploy | GitHub Pages via pnpm + GitHub Actions |
+| Deploy | GitHub Pages via npm + GitHub Actions |
 
 ## Architecture
 
