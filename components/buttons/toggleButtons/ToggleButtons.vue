@@ -1,9 +1,9 @@
 <template>
   <div class="button-container">
     <button
-        class="app-button"
         v-for="button in buttons"
         :key="button.value"
+        class="app-button"
         :class="{ active: button.value === active }"
         @click="emits('select', button.value)"
     >

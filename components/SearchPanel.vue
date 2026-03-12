@@ -2,12 +2,12 @@
   <div class="search-panel">
     <div class="search-panel__field">
       <input
+        v-model="catalogStore.searchQuery"
         class="app-input"
         type="text"
-        v-model="catalogStore.searchQuery"
         placeholder="Search by title, author..."
       />
-      <p class="search-hint" v-if="!catalogStore.isLoading">
+      <p v-if="!catalogStore.isLoading" class="search-hint">
         {{ totalCount }} {{ totalCount === 1 ? 'book' : 'books' }} found
       </p>
     </div>

@@ -3,8 +3,8 @@
     <button
       class="layout-toggle__btn"
       :class="{ 'layout-toggle__btn--active': modelValue === TypeLayout.Grid }"
-      @click="emit('update:modelValue', TypeLayout.Grid)"
       title="Grid view"
+      @click="emit('update:modelValue', TypeLayout.Grid)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
         <rect x="0" y="0" width="6.5" height="6.5" rx="1"/>
@@ -16,8 +16,8 @@
     <button
       class="layout-toggle__btn"
       :class="{ 'layout-toggle__btn--active': modelValue === TypeLayout.List }"
-      @click="emit('update:modelValue', TypeLayout.List)"
       title="List view"
+      @click="emit('update:modelValue', TypeLayout.List)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
         <rect x="0" y="1" width="16" height="2.5" rx="1"/>

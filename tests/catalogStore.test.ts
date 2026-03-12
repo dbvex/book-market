@@ -1,6 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { setActivePinia, createPinia } from 'pinia';
+import { createPinia,setActivePinia } from 'pinia';
+import { beforeEach,describe, expect, it, vi } from 'vitest';
 import { ref } from 'vue';
+
+import { http } from '../shared/api';
+import { useCatalogStore } from '../stores/catalog';
+import type { IBook } from '../types/book';
+import { TypeLayout } from '../types/book';
 
 // Mock @vueuse/core — avoid localStorage dependency in node environment
 vi.mock('@vueuse/core', () => ({
@@ -13,11 +18,6 @@ vi.mock('../shared/api', () => ({
     get: vi.fn(),
   },
 }));
-
-import { useCatalogStore } from '../stores/catalog';
-import { TypeLayout } from '../types/book';
-import type { IBook } from '../types/book';
-import { http } from '../shared/api';
 
 const mockBooks: IBook[] = [
   { id: '1', title: 'Vue.js Guide', authors: 'Evan You', date: '2023-01-01', country: 'US', imgUrl: '' },

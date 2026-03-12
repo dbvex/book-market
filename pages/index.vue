@@ -13,9 +13,10 @@
 
 <script setup lang="ts">
 import { watchDebounced } from '@vueuse/core';
+
 import { useCatalogStore } from '@/stores/catalog';
-import SearchPanel from '~/components/SearchPanel.vue';
 import AppPagination from '~/components/AppPagination.vue';
+import SearchPanel from '~/components/SearchPanel.vue';
 
 const catalogStore = useCatalogStore();
 

@@ -8,14 +8,14 @@
     </NuxtLink>
 
     <div v-if="pending" class="book-skeleton">
-      <div class="book-skeleton__cover skeleton-pulse"></div>
+      <div class="book-skeleton__cover skeleton-pulse"/>
       <div class="book-skeleton__info">
-        <div class="skeleton-pulse" style="height:28px; width:70%; margin-bottom:10px; border-radius:6px;"></div>
-        <div class="skeleton-pulse" style="height:18px; width:50%; margin-bottom:24px; border-radius:6px;"></div>
-        <div class="skeleton-pulse" style="height:14px; width:40%; margin-bottom:8px; border-radius:6px;"></div>
-        <div class="skeleton-pulse" style="height:14px; width:35%; margin-bottom:8px; border-radius:6px;"></div>
-        <div class="skeleton-pulse" style="height:14px; width:45%; margin-bottom:32px; border-radius:6px;"></div>
-        <div class="skeleton-pulse" style="height:40px; width:160px; border-radius:8px;"></div>
+        <div class="skeleton-pulse" style="height:28px; width:70%; margin-bottom:10px; border-radius:6px;"/>
+        <div class="skeleton-pulse" style="height:18px; width:50%; margin-bottom:24px; border-radius:6px;"/>
+        <div class="skeleton-pulse" style="height:14px; width:40%; margin-bottom:8px; border-radius:6px;"/>
+        <div class="skeleton-pulse" style="height:14px; width:35%; margin-bottom:8px; border-radius:6px;"/>
+        <div class="skeleton-pulse" style="height:14px; width:45%; margin-bottom:32px; border-radius:6px;"/>
+        <div class="skeleton-pulse" style="height:40px; width:160px; border-radius:8px;"/>
       </div>
     </div>
 
@@ -117,6 +117,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+
 import { http } from '#shared/api';
 import type { IBookApi } from '~/types/book';
 

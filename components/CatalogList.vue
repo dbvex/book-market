@@ -17,10 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import CatalogItem from './CatalogItem.vue';
-import SkeletonCard from './SkeletonCard.vue';
 import { useCatalogStore } from '@/stores/catalog';
 import { TypeLayout } from '~/types/book';
+
+import CatalogItem from './CatalogItem.vue';
+import SkeletonCard from './SkeletonCard.vue';
 
 const catalogStore = useCatalogStore();
 

@@ -1,11 +1,11 @@
 <template>
   <div class="skeleton-card">
-    <div class="skeleton-card__cover skeleton-pulse"></div>
+    <div class="skeleton-card__cover skeleton-pulse"/>
     <div class="skeleton-card__body">
-      <div class="skeleton-card__title skeleton-pulse"></div>
-      <div class="skeleton-card__line skeleton-pulse"></div>
-      <div class="skeleton-card__line skeleton-card__line--short skeleton-pulse"></div>
-      <div class="skeleton-card__btn skeleton-pulse"></div>
+      <div class="skeleton-card__title skeleton-pulse"/>
+      <div class="skeleton-card__line skeleton-pulse"/>
+      <div class="skeleton-card__line skeleton-card__line--short skeleton-pulse"/>
+      <div class="skeleton-card__btn skeleton-pulse"/>
     </div>
   </div>
 </template>

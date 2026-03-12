@@ -6,7 +6,7 @@
           <span class="app-logo__icon">📚</span>
           <span class="app-logo__name">Book Market</span>
         </NuxtLink>
-        <button class="theme-toggle" @click="toggleDark()" :aria-label="isDark ? 'Switch to light' : 'Switch to dark'">
+        <button class="theme-toggle" :aria-label="isDark ? 'Switch to light' : 'Switch to dark'" @click="toggleDark()">
           {{ isDark ? '☀️' : '🌙' }}
         </button>
       </div>

@@ -3,8 +3,8 @@
     <button
       class="pagination__btn pagination__btn--nav"
       :disabled="currentPage === 1"
-      @click="emit('change', currentPage - 1)"
       aria-label="Previous page"
+      @click="emit('change', currentPage - 1)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
         <path d="M10.06 3.47a.75.75 0 0 1 0 1.06L6.59 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L4.47 8 8.94 3.53a.75.75 0 0 1 1.06 0z"/>
@@ -26,8 +26,8 @@
     <button
       class="pagination__btn pagination__btn--nav"
       :disabled="currentPage === totalPages"
-      @click="emit('change', currentPage + 1)"
       aria-label="Next page"
+      @click="emit('change', currentPage + 1)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
         <path d="M5.94 3.47a.75.75 0 0 0 0 1.06L9.41 8 5.94 11.47a.75.75 0 1 0 1.06 1.06L11.53 8 7.06 3.53a.75.75 0 0 0-1.06 0z"/>
