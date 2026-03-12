@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import type { IBook } from '~/store/interface';
-import { useCatalogStore } from '~/store/catalog';
-import { TypeLayout } from '~/store/interface';
+import type { IBook } from '~/types/book';
+import { useCatalogStore } from '~/stores/catalog';
+import { TypeLayout } from '~/types/book';
 
 const catalogStore = useCatalogStore();
 defineProps<{ item: IBook }>();

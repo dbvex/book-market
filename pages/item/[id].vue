@@ -118,7 +118,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { http } from '#shared/api';
-import type { IBookApi } from '~/store/interface';
+import type { IBookApi } from '~/types/book';
 
 const route = useRoute();
 const id = route.params.id as string;

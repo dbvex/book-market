@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { watchDebounced } from '@vueuse/core';
-import { useCatalogStore } from '@/store/catalog';
+import { useCatalogStore } from '@/stores/catalog';
 import SearchPanel from '~/components/SearchPanel.vue';
 import AppPagination from '~/components/AppPagination.vue';
 

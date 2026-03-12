@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { TypeLayout } from '~/store/interface';
+import { TypeLayout } from '~/types/book';
 
 defineProps<{ modelValue: TypeLayout | null }>();
 const emit = defineEmits<{ 'update:modelValue': [value: TypeLayout] }>();

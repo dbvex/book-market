@@ -19,8 +19,8 @@
 <script setup lang="ts">
 import CatalogItem from './CatalogItem.vue';
 import SkeletonCard from './SkeletonCard.vue';
-import { useCatalogStore } from '@/store/catalog';
-import { TypeLayout } from '~/store/interface';
+import { useCatalogStore } from '@/stores/catalog';
+import { TypeLayout } from '~/types/book';
 
 const catalogStore = useCatalogStore();
 

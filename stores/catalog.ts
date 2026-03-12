@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 import { http } from '#shared/api';
-import type { IBook, TypeLayout } from '~/store/interface';
-import { bookMapper } from '~/store/bookMapper';
+import type { IBook, TypeLayout } from '~/types/book';
+import { bookMapper } from '~/stores/bookMapper';
 
 const DEFAULT_SEARCH_TEXT = 'Nuxt';
 const COUNT_PER_PAGE = 10;
