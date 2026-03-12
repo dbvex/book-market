@@ -1,0 +1,102 @@
+// ===========================================================
+// Design Tokens — Book Market
+// Единый источник правды для всех дизайн-решений.
+//
+// ПРАВИЛО: Не импортировать этот файл в компоненты напрямую.
+// Используй CSS custom properties: var(--token-name)
+// Только global.scss читает этот файл и генерирует :root.
+// ===========================================================
+
+// ----- Colors: Light -----
+$color-bg:              #f1f5f9;
+$color-surface:         #ffffff;
+$color-primary:         #2563eb;
+$color-primary-hover:   #1d4ed8;
+$color-accent:          #f59e0b;   // rating stars
+$color-text:            #0f172a;
+$color-text-secondary:  #64748b;
+$color-text-on-primary: #ffffff;   // text on primary bg
+$color-border:          #e2e8f0;
+$color-highlight:       #fef9c3;   // search match
+$color-badge-bg:        #dbeafe;
+$color-badge-text:      #1d4ed8;
+$color-placeholder:     #94a3b8;
+
+// ----- Colors: Dark -----
+$color-bg-dark:             #121212;
+$color-surface-dark:        #1e1e1e;
+$color-primary-dark:        #4d90fe;
+$color-primary-hover-dark:  #6aa0f8;
+$color-text-dark:           #e1e1e1;
+$color-text-secondary-dark: #9ca3af;
+$color-border-dark:         #2e2e2e;
+$color-highlight-dark:      #4a3f00;
+
+// ----- Skeleton -----
+$skeleton-base:       #e2e8f0;
+$skeleton-shine:      #f8fafc;
+$skeleton-base-dark:  #2e2e2e;
+$skeleton-shine-dark: #3a3a3a;
+
+// ----- Spacing (4px base grid) -----
+// --space-N = N × 4px; half-steps покрывают 6/10/14px
+$space-1:   4px;
+$space-1-5: 6px;
+$space-2:   8px;
+$space-2-5: 10px;
+$space-3:   12px;
+$space-3-5: 14px;
+$space-4:   16px;
+$space-5:   20px;
+$space-6:   24px;
+$space-7:   28px;
+$space-8:   32px;
+$space-9:   36px;
+$space-10:  40px;
+$space-15:  60px;
+
+// ----- Typography -----
+// Стандартная шкала: 12 / 14 / 16 / 20 / 24 px
+$text-xs:   0.75rem;   // 12px — tags, badges, micro-labels
+$text-sm:   0.875rem;  // 14px — кнопки, хинты, metadata
+$text-base: 1rem;      // 16px — body, inputs
+$text-lg:   1.25rem;   // 20px — заголовки секций
+$text-xl:   1.5rem;    // 24px — заголовки страниц
+
+// ----- Line heights -----
+$leading-tight:   1.2;    // headings
+$leading-snug:    1.4;    // card titles, subtitles
+$leading-normal:  1.6;    // body text
+$leading-relaxed: 1.75;   // long-form paragraphs
+
+// ----- Border radius -----
+$radius-sm:    6px;    // кнопки, теги
+$radius-base:  8px;    // пагинация, универсальный
+$radius-input: 10px;   // поля ввода
+$radius-md:    12px;   // карточки, большие контейнеры
+$radius-full:  100px;  // pills, badges
+
+// ----- Shadows -----
+$shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-md:    0 4px 16px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.13);
+
+$shadow-sm-dark:    0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+$shadow-md-dark:    0 4px 16px rgba(0, 0, 0, 0.4);
+$shadow-hover-dark: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+// ----- Focus -----
+$focus-ring:      0 0 0 3px rgba(37, 99, 235, 0.12);
+$focus-ring-dark: 0 0 0 3px rgba(77, 144, 254, 0.2);
+
+// ----- Transitions -----
+$transition: 0.2s ease;
+
+// ----- Layout constants -----
+$header-height:      60px;
+$page-max-width:     1400px;
+$detail-max-width:   860px;
+$cover-height:       160px;    // обложка карточки в grid
+$book-cover-width:   180px;    // обложка на детальной странице
+$meta-label-width:   86px;     // ширина label-колонки meta-таблицы
+$btn-size:           36px;     // квадратные кнопки (пагинация)

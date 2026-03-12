@@ -1,18 +1,20 @@
 <template>
-  <div v-if="isLoading" :class="layoutClass">
-    <SkeletonCard v-for="n in 10" :key="n" />
-  </div>
-  <div v-else-if="isEmpty" class="empty-state">
-    <div class="empty-state__icon">🔍</div>
-    <p class="empty-state__title">Nothing found</p>
-    <p class="empty-state__hint">Try a different search query</p>
-  </div>
-  <div v-else :class="layoutClass">
-    <CatalogItem
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-    />
+  <div class="catalog-area">
+    <div v-if="showSkeletons" :class="layoutClass">
+      <SkeletonCard v-for="n in 10" :key="n" />
+    </div>
+    <div v-else-if="showEmpty" class="empty-state">
+      <div class="empty-state__icon">🔍</div>
+      <p class="empty-state__title">Nothing found</p>
+      <p class="empty-state__hint">Try a different search query</p>
+    </div>
+    <div v-else :class="[layoutClass, { 'catalog--refetching': refetching }]">
+      <CatalogItem
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,50 +25,76 @@ import { TypeLayout } from '~/types/book';
 import CatalogItem from './CatalogItem.vue';
 import SkeletonCard from './SkeletonCard.vue';
 
+const props = defineProps<{ initialLoad: boolean; refetching: boolean }>();
+
 const catalogStore = useCatalogStore();
 
 const items = computed(() => catalogStore.itemsWithPagination);
-const isLoading = computed(() => catalogStore.isLoading);
-const isEmpty = computed(() => !isLoading.value && (!items.value || items.value.length === 0));
+const hasItems = computed(() => !!items.value && items.value.length > 0);
+
+// Show skeletons when:
+// 1. First ever load (no data yet)
+// 2. Refetching but previous result was empty — nothing to dim
+const showSkeletons = computed(() =>
+  props.initialLoad || (props.refetching && !hasItems.value)
+);
+
+// Show empty state only when settled (not loading) and truly empty
+const showEmpty = computed(() =>
+  !props.initialLoad && !props.refetching && !hasItems.value
+);
+
 const layoutClass = computed(() =>
   catalogStore.activeTypeLayout === TypeLayout.Grid ? 'catalog-grid' : 'catalog-list'
 );
 </script>
 
 <style scoped lang="scss">
+.catalog-area {
+  min-height: 640px;
+  margin-top: var(--space-4);
+}
+
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  gap: var(--space-4);
 }
 
 .catalog-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--space-2);
+}
+
+.catalog--refetching {
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity var(--transition);
 }
 
 .empty-state {
-  text-align: center;
-  padding: 80px 24px;
-  color: $text-secondary;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
 
   &__icon {
     font-size: 3rem;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   &__title {
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
     font-weight: 600;
-    margin: 0 0 8px;
-    color: $text;
+    margin: 0 0 var(--space-2);
+    color: var(--color-text);
   }
 
   &__hint {
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     margin: 0;
   }
 }

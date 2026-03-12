@@ -1,62 +1,111 @@
+@use 'tokens' as t;
+
+// =====================================================
+// :root — CSS Custom Properties (design token registry)
+//
+// Все компоненты используют var(--*) из этого списка.
+// Не используй $scss-vars или хардкод в компонентах.
+// Для добавления нового токена: _tokens.scss → здесь.
+// =====================================================
+
 :root {
-  --color-bg:             #f1f5f9;
-  --color-surface:        #ffffff;
-  --color-primary:        #2563eb;
-  --color-primary-hover:  #1d4ed8;
-  --color-text:           #0f172a;
-  --color-text-secondary: #64748b;
-  --color-border:         #e2e8f0;
-  --color-highlight:      #fef9c3;
-  --skeleton-base:  #e2e8f0;
-  --skeleton-shine: #f8fafc;
-  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.13);
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --transition: 0.2s ease;
+  // --- Colors ---
+  --color-bg:              #{t.$color-bg};
+  --color-surface:         #{t.$color-surface};
+  --color-primary:         #{t.$color-primary};
+  --color-primary-hover:   #{t.$color-primary-hover};
+  --color-accent:          #{t.$color-accent};
+  --color-text:            #{t.$color-text};
+  --color-text-secondary:  #{t.$color-text-secondary};
+  --color-text-on-primary: #{t.$color-text-on-primary};
+  --color-border:          #{t.$color-border};
+  --color-highlight:       #{t.$color-highlight};
+  --color-badge-bg:        #{t.$color-badge-bg};
+  --color-badge-text:      #{t.$color-badge-text};
+  --color-placeholder:     #{t.$color-placeholder};
+
+  // --- Skeleton ---
+  --skeleton-base:  #{t.$skeleton-base};
+  --skeleton-shine: #{t.$skeleton-shine};
+
+  // --- Shadows ---
+  --shadow-sm:    #{t.$shadow-sm};
+  --shadow-md:    #{t.$shadow-md};
+  --shadow-hover: #{t.$shadow-hover};
+
+  // --- Focus ---
+  --focus-ring: #{t.$focus-ring};
+
+  // --- Radius ---
+  --radius-sm:    #{t.$radius-sm};
+  --radius-base:  #{t.$radius-base};
+  --radius-input: #{t.$radius-input};
+  --radius-md:    #{t.$radius-md};
+  --radius-full:  #{t.$radius-full};
+
+  // --- Spacing ---
+  --space-1:   #{t.$space-1};
+  --space-1-5: #{t.$space-1-5};
+  --space-2:   #{t.$space-2};
+  --space-2-5: #{t.$space-2-5};
+  --space-3:   #{t.$space-3};
+  --space-3-5: #{t.$space-3-5};
+  --space-4:   #{t.$space-4};
+  --space-5:   #{t.$space-5};
+  --space-6:   #{t.$space-6};
+  --space-7:   #{t.$space-7};
+  --space-8:   #{t.$space-8};
+  --space-9:   #{t.$space-9};
+  --space-10:  #{t.$space-10};
+  --space-15:  #{t.$space-15};
+
+  // --- Typography ---
+  --text-xs:   #{t.$text-xs};
+  --text-sm:   #{t.$text-sm};
+  --text-base: #{t.$text-base};
+  --text-lg:   #{t.$text-lg};
+  --text-xl:   #{t.$text-xl};
+
+  // --- Line heights ---
+  --leading-tight:   #{t.$leading-tight};
+  --leading-snug:    #{t.$leading-snug};
+  --leading-normal:  #{t.$leading-normal};
+  --leading-relaxed: #{t.$leading-relaxed};
+
+  // --- Transition ---
+  --transition: #{t.$transition};
+
+  // --- Layout ---
+  --header-height:    #{t.$header-height};
+  --page-max-width:   #{t.$page-max-width};
+  --detail-max-width: #{t.$detail-max-width};
+  --cover-height:     #{t.$cover-height};
+  --book-cover-width: #{t.$book-cover-width};
+  --meta-label-width: #{t.$meta-label-width};
+  --btn-size:         #{t.$btn-size};
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-}
-
-body {
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  margin: 0;
-}
-
-h1, h2, h3 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0;
-}
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
+// =====================================================
+// Dark theme — переопределяем только то, что меняется.
+// Spacing, typography, layout — theme-independent.
+// =====================================================
 
 [data-theme="dark"] {
-  --color-bg:             #121212;
-  --color-surface:        #1e1e1e;
-  --color-primary:        #4d90fe;
-  --color-primary-hover:  #6aa0f8;
-  --color-text:           #e1e1e1;
-  --color-text-secondary: #9ca3af;
-  --color-border:         #2e2e2e;
-  --color-highlight:      #4a3f00;
-  --skeleton-base:  #2e2e2e;
-  --skeleton-shine: #3a3a3a;
-  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --color-bg:             #{t.$color-bg-dark};
+  --color-surface:        #{t.$color-surface-dark};
+  --color-primary:        #{t.$color-primary-dark};
+  --color-primary-hover:  #{t.$color-primary-hover-dark};
+  --color-text:           #{t.$color-text-dark};
+  --color-text-secondary: #{t.$color-text-secondary-dark};
+  --color-border:         #{t.$color-border-dark};
+  --color-highlight:      #{t.$color-highlight-dark};
+
+  --skeleton-base:  #{t.$skeleton-base-dark};
+  --skeleton-shine: #{t.$skeleton-shine-dark};
+
+  --shadow-sm:    #{t.$shadow-sm-dark};
+  --shadow-md:    #{t.$shadow-md-dark};
+  --shadow-hover: #{t.$shadow-hover-dark};
+
+  --focus-ring: #{t.$focus-ring-dark};
 }

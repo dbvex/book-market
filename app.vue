@@ -40,10 +40,10 @@ const toggleDark = useToggle(isDark);
 }
 
 .app-header__inner {
-  max-width: 1400px;
+  max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 0 24px;
-  height: 60px;
+  padding: 0 var(--space-6);
+  height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,7 +52,7 @@ const toggleDark = useToggle(isDark);
 .app-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2-5);
   text-decoration: none;
 
   &:hover {
@@ -60,12 +60,12 @@ const toggleDark = useToggle(isDark);
   }
 
   &__icon {
-    font-size: 1.4rem;
+    font-size: var(--text-xl);
     line-height: 1;
   }
 
   &__name {
-    font-size: 1.15rem;
+    font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-text);
     letter-spacing: -0.02em;
@@ -77,8 +77,8 @@ const toggleDark = useToggle(isDark);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 6px 10px;
+  font-size: var(--text-lg);
+  padding: var(--space-1-5) var(--space-2-5);
   line-height: 1;
   transition: border-color var(--transition), background var(--transition);
 

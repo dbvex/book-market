@@ -7,7 +7,7 @@
       @click="emit('change', currentPage - 1)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M10.06 3.47a.75.75 0 0 1 0 1.06L6.59 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L4.47 8 8.94 3.53a.75.75 0 0 1 1.06 0z"/>
+        <path d="M10.06 3.47a.75.75 0 0 1 0 1.06L6.59 8l3.47 3.47a.75.75 1 1 1-1.06 1.06L4.47 8 8.94 3.53a.75.75 0 0 1 1.06 0z"/>
       </svg>
     </button>
 
@@ -30,7 +30,7 @@
       @click="emit('change', currentPage + 1)"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M5.94 3.47a.75.75 0 0 0 0 1.06L9.41 8 5.94 11.47a.75.75 0 1 0 1.06 1.06L11.53 8 7.06 3.53a.75.75 0 0 0-1.06 0z"/>
+        <path d="M5.94 3.47a.75.75 0 0 0 0 1.06L9.41 8 5.94 11.47a.75.75 1 0 1.06 1.06L11.53 8 7.06 3.53a.75.75 0 0 0-1.06 0z"/>
       </svg>
     </button>
   </nav>
@@ -78,8 +78,8 @@ const displayedPages = computed((): (number | string)[] => {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
-  margin-top: 32px;
+  gap: var(--space-1);
+  margin-top: var(--space-8);
   flex-wrap: wrap;
 }
 
@@ -87,14 +87,14 @@ const displayedPages = computed((): (number | string)[] => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 6px;
+  min-width: var(--btn-size);
+  height: var(--btn-size);
+  padding: 0 var(--space-1-5);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-base);
   background: var(--color-surface);
   color: var(--color-text);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
@@ -108,7 +108,7 @@ const displayedPages = computed((): (number | string)[] => {
   &--active {
     background: var(--color-primary);
     border-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-text-on-primary);
     pointer-events: none;
 
     &:hover {
@@ -130,10 +130,10 @@ const displayedPages = computed((): (number | string)[] => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
+  min-width: var(--btn-size);
+  height: var(--btn-size);
   color: var(--color-text-secondary);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   user-select: none;
 }
 </style>

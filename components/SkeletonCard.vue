@@ -11,22 +11,7 @@
 </template>
 
 <style lang="scss" scoped>
-@keyframes skeleton-shimmer {
-  0%   { background-position: -600px 0; }
-  100% { background-position: 600px 0; }
-}
-
-.skeleton-pulse {
-  background: linear-gradient(
-    90deg,
-    var(--skeleton-base) 25%,
-    var(--skeleton-shine) 50%,
-    var(--skeleton-base) 75%
-  );
-  background-size: 1200px 100%;
-  animation: skeleton-shimmer 1.5s ease-in-out infinite;
-  border-radius: var(--radius-sm);
-}
+// .skeleton-pulse и @keyframes skeleton-shimmer определены глобально в _base.scss
 
 .skeleton-card {
   background: var(--color-surface);
@@ -39,15 +24,15 @@
 
 .skeleton-card__cover {
   width: 100%;
-  height: 160px;
+  height: var(--cover-height);
   border-radius: 0;
 }
 
 .skeleton-card__body {
-  padding: 14px;
+  padding: var(--space-3-5);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-2-5);
 }
 
 .skeleton-card__title {
@@ -65,8 +50,8 @@
 }
 
 .skeleton-card__btn {
-  height: 34px;
-  margin-top: 6px;
+  height: var(--btn-size);
+  margin-top: var(--space-1-5);
   border-radius: var(--radius-sm);
 }
 </style>

@@ -32,7 +32,7 @@ const isListLayout = computed(() => catalogStore.activeTypeLayout === TypeLayout
 
 const highlightText = (text: string, query: string): string => {
   if (!query || !text) return text || '';
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escaped = query.replace(/[.*+?^${}()|[\]\]/g, '\$&');
   return text.replace(new RegExp(escaped, 'gi'), (match) => `<span class="highlight">${match}</span>`);
 };
 
@@ -70,7 +70,7 @@ const formatYear = (dateStr: string): string => {
     .catalog-item__body {
       flex-direction: row;
       align-items: center;
-      gap: 16px;
+      gap: var(--space-4);
     }
 
     .catalog-item__link {
@@ -82,7 +82,7 @@ const formatYear = (dateStr: string): string => {
 
 .catalog-item__cover {
   width: 100%;
-  height: 160px;
+  height: var(--cover-height);
   background: var(--color-bg);
   display: flex;
   align-items: center;
@@ -97,34 +97,34 @@ const formatYear = (dateStr: string): string => {
 }
 
 .catalog-item__body {
-  padding: 14px;
+  padding: var(--space-3-5);
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .catalog-item__content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .catalog-item__title {
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.4;
+  line-height: var(--leading-snug);
   margin: 0;
 }
 
 .catalog-item__author {
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   margin: 0;
   overflow: hidden;
@@ -134,27 +134,27 @@ const formatYear = (dateStr: string): string => {
 
 .catalog-item__meta {
   display: flex;
-  gap: 6px;
+  gap: var(--space-1-5);
   flex-wrap: wrap;
-  margin-top: 4px;
+  margin-top: var(--space-1);
 }
 
 .catalog-item__tag {
-  font-size: 0.72rem;
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   background: var(--color-bg);
-  padding: 2px 8px;
-  border-radius: 100px;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
 }
 
 .catalog-item__link {
   display: block;
-  padding: 8px 14px;
+  padding: var(--space-2) var(--space-3-5);
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-text-on-primary);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  font-size: 0.82rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   text-align: center;
   transition: background var(--transition);
@@ -163,7 +163,7 @@ const formatYear = (dateStr: string): string => {
   &:hover {
     background: var(--color-primary-hover);
     text-decoration: none;
-    color: #fff;
+    color: var(--color-text-on-primary);
   }
 }
 

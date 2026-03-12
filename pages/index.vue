@@ -1,13 +1,15 @@
 <template>
   <div class="page">
-    <SearchPanel />
-    <CatalogList />
-    <AppPagination
-      v-if="!catalogStore.isLoading && totalPages > 1"
-      :total-pages="totalPages"
-      :current-page="catalogStore.currentPage"
-      @change="catalogStore.setActiveStep"
-    />
+    <SearchPanel :loading="isInitialLoad" />
+    <CatalogList :initial-load="isInitialLoad" :refetching="isRefetching" />
+    <div class="pagination-area">
+      <AppPagination
+        v-if="!isInitialLoad && totalPages > 1"
+        :total-pages="totalPages"
+        :current-page="catalogStore.currentPage"
+        @change="catalogStore.setActiveStep"
+      />
+    </div>
   </div>
 </template>
 
@@ -16,6 +18,7 @@ import { watchDebounced } from '@vueuse/core';
 
 import { useCatalogStore } from '@/stores/catalog';
 import AppPagination from '~/components/AppPagination.vue';
+import CatalogList from '~/components/CatalogList.vue';
 import SearchPanel from '~/components/SearchPanel.vue';
 
 const catalogStore = useCatalogStore();
@@ -24,7 +27,12 @@ const totalPages = computed(() =>
   Math.ceil((catalogStore.items?.length ?? 0) / catalogStore.perPage)
 );
 
-await useAsyncData('catalog-books', () => catalogStore.fetchBooks());
+const { pending } = await useAsyncData('catalog-books', () => catalogStore.fetchBooks());
+
+// Initial page load — show skeletons (no data yet)
+const isInitialLoad = computed(() => pending.value);
+// Search re-fetch — keep current content, just dim it
+const isRefetching = computed(() => !pending.value && catalogStore.isLoading);
 
 watchDebounced(
   () => catalogStore.searchQuery,
@@ -38,8 +46,15 @@ watchDebounced(
 
 <style scoped lang="scss">
 .page {
-  max-width: 1400px;
+  max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 var(--space-6) var(--space-10);
+}
+
+.pagination-area {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

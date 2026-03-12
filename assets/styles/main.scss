@@ -1,24 +1,15 @@
+// =====================================================
+// main.scss — точка входа стилей
+//
+// Порядок импортов имеет значение:
+//   global  → CSS custom properties (читает _tokens.scss)
+//   base    → reset + typography defaults + .skeleton-pulse
+//   mixins  → SCSS helper mixins
+// =====================================================
 
-
-/* Глобальные стили */
-@use "sass:meta";
-@use 'variables';
-@use 'mixins';
-@use 'base';
 @use 'global';
+@use 'base';
+@use 'mixins';
 
-/* Светлая тема */
-@use 'themes/light';
-
-/* Компоненты */
 @use 'components/button';
 @use 'components/input';
-
-
-body.light-theme {
-  @include meta.load-css('themes/light');
-}
-
-body.dark-theme {
-  @include meta.load-css('themes/dark');
-}

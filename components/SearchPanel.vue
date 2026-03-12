@@ -7,7 +7,7 @@
         type="text"
         placeholder="Search by title, author..."
       />
-      <p v-if="!catalogStore.isLoading" class="search-hint">
+      <p class="search-hint" :class="{ 'search-hint--hidden': props.loading }">
         {{ totalCount }} {{ totalCount === 1 ? 'book' : 'books' }} found
       </p>
     </div>
@@ -19,6 +19,8 @@
 import LayoutToggle from '~/components/LayoutToggle.vue';
 import { useCatalogStore } from '~/stores/catalog';
 import { TypeLayout } from '~/types/book';
+
+const props = defineProps<{ loading: boolean }>();
 
 const catalogStore = useCatalogStore();
 
@@ -34,24 +36,24 @@ const layout = computed({
 .search-panel {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 20px 0 8px;
+  gap: var(--space-3);
+  padding: var(--space-5) 0 var(--space-2);
 }
 
 .search-panel__field {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-1-5);
 }
 
 .app-input {
   width: 100%;
-  padding: 12px 20px;
+  padding: var(--space-3) var(--space-5);
   border: 2px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: var(--radius-input);
   background-color: var(--color-surface);
-  font-size: 15px;
+  font-size: var(--text-base);
   color: var(--color-text);
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
@@ -59,18 +61,24 @@ const layout = computed({
   &:focus,
   &:focus-visible {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    box-shadow: var(--focus-ring);
   }
 
   &::placeholder {
-    color: var(--color-text-secondary);
+    color: var(--color-placeholder);
   }
 }
 
 .search-hint {
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   margin: 0;
-  padding-left: 4px;
+  padding-left: var(--space-1);
+  opacity: 1;
+  transition: opacity var(--transition);
+
+  &--hidden {
+    opacity: 0;
+  }
 }
 </style>
