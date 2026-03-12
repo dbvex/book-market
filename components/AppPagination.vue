@@ -90,34 +90,34 @@ const displayedPages = computed((): (number | string)[] => {
   min-width: 36px;
   height: 36px;
   padding: 0 6px;
-  border: 1px solid $border;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: $surface;
-  color: $text;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
 
   &:hover:not(:disabled) {
-    background: $background;
-    border-color: $primary;
-    color: $primary;
+    background: var(--color-bg);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   &--active {
-    background: $primary;
-    border-color: $primary;
-    color: $white;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
     pointer-events: none;
 
     &:hover {
-      background: $primary;
+      background: var(--color-primary);
     }
   }
 
   &--nav {
-    color: $text-secondary;
+    color: var(--color-text-secondary);
 
     &:disabled {
       opacity: 0.35;
@@ -132,7 +132,7 @@ const displayedPages = computed((): (number | string)[] => {
   justify-content: center;
   min-width: 36px;
   height: 36px;
-  color: $text-secondary;
+  color: var(--color-text-secondary);
   font-size: 0.875rem;
   user-select: none;
 }

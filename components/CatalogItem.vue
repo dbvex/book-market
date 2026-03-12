@@ -83,7 +83,7 @@ const formatYear = (dateStr: string): string => {
 .catalog-item__cover {
   width: 100%;
   height: 160px;
-  background: #f8fafc;
+  background: var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: center;

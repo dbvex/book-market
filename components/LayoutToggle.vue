@@ -38,8 +38,8 @@ const emit = defineEmits<{ 'update:modelValue': [value: TypeLayout] }>();
 <style lang="scss" scoped>
 .layout-toggle {
   display: flex;
-  background: $background;
-  border: 1px solid $border;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 3px;
   gap: 2px;
@@ -54,18 +54,18 @@ const emit = defineEmits<{ 'update:modelValue': [value: TypeLayout] }>();
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: $text-secondary;
+  color: var(--color-text-secondary);
   cursor: pointer;
   transition: background var(--transition), color var(--transition);
 
   &:hover {
-    background: $surface;
-    color: $text;
+    background: var(--color-surface);
+    color: var(--color-text);
   }
 
   &--active {
-    background: $surface;
-    color: $primary;
+    background: var(--color-surface);
+    color: var(--color-primary);
     box-shadow: var(--shadow-sm);
   }
 }

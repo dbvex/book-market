@@ -47,29 +47,29 @@ const layout = computed({
 
 .app-input {
   width: 100%;
-  padding: $input-padding;
-  border: 2px solid $input-border-color;
-  border-radius: $input-border-radius;
-  background-color: $input-background-color;
+  padding: 12px 20px;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-surface);
   font-size: 15px;
-  color: $text;
+  color: var(--color-text);
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
 
   &:focus,
   &:focus-visible {
-    border-color: $input-focus-border-color;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   }
 
   &::placeholder {
-    color: $input-placeholder-color;
+    color: var(--color-text-secondary);
   }
 }
 
 .search-hint {
   font-size: 0.78rem;
-  color: $text-secondary;
+  color: var(--color-text-secondary);
   margin: 0;
   padding-left: 4px;
 }

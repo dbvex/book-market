@@ -19,9 +19,9 @@
 .skeleton-pulse {
   background: linear-gradient(
     90deg,
-    #e2e8f0 25%,
-    #f8fafc 50%,
-    #e2e8f0 75%
+    var(--skeleton-base) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 75%
   );
   background-size: 1200px 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
