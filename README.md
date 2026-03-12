@@ -8,7 +8,7 @@
 ![VueUse](https://img.shields.io/badge/VueUse-11-4FC08D)
 ![Vitest](https://img.shields.io/badge/Vitest-27_tests-6E9F18)
 
-**[Live Demo →](https://book-market-dolet.vercel.app)**
+**[Live Demo →](https://bizhev.github.io/book-market/)**
 
 ---
 
@@ -83,7 +83,7 @@ Cart + layout preference survive refresh without extra boilerplate.
 | Styles | SCSS + CSS Custom Properties | sass 1.82 |
 | Tests | Vitest + Vue Test Utils + @pinia/testing | 2.x |
 | API | Google Books API v1 | — |
-| Deploy | Vercel | — |
+| Deploy | GitHub Pages | — |
 
 ---
 
@@ -102,7 +102,7 @@ cp .env.example .env
 npm run dev          # → http://localhost:3000/book-market/
 npm test             # run all unit tests
 npm run test:coverage  # tests + coverage report
-npm run generate     # static build for Vercel
+npm run generate     # static build for GitHub Pages
 ```
 
 ---
