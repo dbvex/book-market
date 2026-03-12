@@ -21,6 +21,8 @@ import AppPagination from '~/components/AppPagination.vue';
 import CatalogList from '~/components/CatalogList.vue';
 import SearchPanel from '~/components/SearchPanel.vue';
 
+definePageMeta({ ssr: false });
+
 useSeoMeta({
   title: 'Book Market — Browse & Discover Books',
   description: 'Explore thousands of books via Google Books API. Built with Nuxt 3, Vue 3, Pinia and VueUse.',
@@ -34,10 +36,7 @@ const totalPages = computed(() =>
   Math.ceil((catalogStore.items?.length ?? 0) / catalogStore.perPage)
 );
 
-const { pending } = useAsyncData('catalog-books', () => catalogStore.fetchBooks(), {
-  server: false,
-  getCachedData: () => undefined
-});
+const { pending } = useLazyAsyncData('catalog-books', () => catalogStore.fetchBooks());
 
 const isInitialLoad = computed(() => pending.value);
 const isRefetching = computed(() => !pending.value && catalogStore.isLoading);
