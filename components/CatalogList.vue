@@ -22,9 +22,6 @@
 import { useCatalogStore } from '@/stores/catalog';
 import { TypeLayout } from '~/types/book';
 
-import CatalogItem from './CatalogItem.vue';
-import SkeletonCard from './SkeletonCard.vue';
-
 const props = defineProps<{ initialLoad: boolean; refetching: boolean }>();
 
 const catalogStore = useCatalogStore();

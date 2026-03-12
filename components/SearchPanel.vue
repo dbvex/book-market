@@ -28,7 +28,7 @@ const totalCount = computed(() => catalogStore.items?.length ?? 0);
 
 const layout = computed({
   get: () => catalogStore.activeTypeLayout ?? TypeLayout.Grid,
-  set: (val: TypeLayout) => catalogStore.setTypeLayout(val),
+  set: (val: TypeLayout) => catalogStore.setTypeLayout(val)
 });
 </script>
 

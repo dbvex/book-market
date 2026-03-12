@@ -13,60 +13,51 @@
 </template>
 <script lang="ts" setup>
 defineProps<{
-  buttons: [
-    {
-      text: string,
-      value: unknown
-    }
-  ],
-  active: unknown
-}
->();
-
-const emits = defineEmits<{
-  (event: 'select', value: unknown): void
+  buttons: { text: string, value: string | number }[],
+  active: string | number | null
 }>();
 
+const emits = defineEmits<{
+  (event: 'select', value: string | number): void
+}>();
 </script>
 <style lang="scss" scoped>
-
 .app-button {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: $background;
-  color: $text;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  background-color: var(--color-surface);
+  color: var(--color-text);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 5px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-1);
 
   &:hover {
-    background-color: $button-hover;
-    color: $light-text;
+    background-color: var(--color-primary-hover);
+    color: var(--color-text-on-primary);
     transform: translateY(-2px);
   }
 
   &.active {
-    background-color: $primary;
-    color: $light-text;
-    border-color: $primary;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
     transform: translateY(2px);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+    box-shadow: var(--focus-ring);
   }
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-2-5);
   flex-wrap: wrap;
 }
 </style>
-

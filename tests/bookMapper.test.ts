@@ -1,7 +1,7 @@
 import { describe, expect,it } from 'vitest';
 
-import { bookMapper } from '../stores/bookMapper';
-import type { IBookApi } from '../types/book';
+import { bookMapper } from '~/stores/bookMapper';
+import type { IBookApi } from '~/types/book';
 
 const mockBookApi: IBookApi = {
   kind: 'books#volume',
@@ -23,18 +23,18 @@ const mockBookApi: IBookApi = {
     panelizationSummary: { containsEpubBubbles: false, containsImageBubbles: false },
     imageLinks: {
       smallThumbnail: 'https://books.google.com/thumbnail.jpg',
-      thumbnail: 'https://books.google.com/thumbnail-large.jpg',
+      thumbnail: 'https://books.google.com/thumbnail-large.jpg'
     },
     language: 'en',
     previewLink: '',
     infoLink: '',
-    canonicalVolumeLink: '',
+    canonicalVolumeLink: ''
   },
   saleInfo: {
     country: 'US',
     saleability: 'FOR_SALE',
     isEbook: false,
-    buyLink: '',
+    buyLink: ''
   },
   accessInfo: {
     country: 'US',
@@ -46,8 +46,8 @@ const mockBookApi: IBookApi = {
     pdf: { isAvailable: false },
     webReaderLink: '',
     accessViewStatus: 'SAMPLE',
-    quoteSharingAllowed: false,
-  },
+    quoteSharingAllowed: false
+  }
 };
 
 describe('bookMapper', () => {
@@ -68,8 +68,8 @@ describe('bookMapper', () => {
       ...mockBookApi,
       volumeInfo: {
         ...mockBookApi.volumeInfo,
-        authors: ['Author One', 'Author Two', 'Author Three'],
-      },
+        authors: ['Author One', 'Author Two', 'Author Three']
+      }
     };
 
     const result = bookMapper([bookWithMultipleAuthors]);
@@ -81,8 +81,8 @@ describe('bookMapper', () => {
       ...mockBookApi,
       volumeInfo: {
         ...mockBookApi.volumeInfo,
-        imageLinks: { smallThumbnail: '', thumbnail: '' },
-      },
+        imageLinks: { smallThumbnail: '', thumbnail: '' }
+      }
     };
 
     const result = bookMapper([bookWithoutImage]);
@@ -94,8 +94,8 @@ describe('bookMapper', () => {
       ...mockBookApi,
       volumeInfo: {
         ...mockBookApi.volumeInfo,
-        authors: null as unknown as string[],
-      },
+        authors: null as unknown as string[]
+      }
     };
 
     const result = bookMapper([bookWithoutAuthors]);

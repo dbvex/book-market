@@ -1,5 +1,5 @@
 import { useLocalStorage } from '@vueuse/core';
-import { defineStore } from 'pinia';
+import { defineStore, skipHydrate } from 'pinia';
 import { computed,ref } from 'vue';
 
 import { http } from '#shared/api';
@@ -31,7 +31,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     return items.value.slice(start, start + perPage.value);
   });
 
-  async function fetchBooks(query = DEFAULT_SEARCH_TEXT) {
+  async function fetchBooks(query = DEFAULT_SEARCH_TEXT): Promise<IBook[]> {
     isLoading.value = true;
     try {
       const { data } = await http.get(`/volumes?q=intitle:${query}&maxResults=40`);
@@ -41,6 +41,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     } finally {
       isLoading.value = false;
     }
+    return books.value;
   }
 
   function setTypeLayout(type: TypeLayout) {
@@ -54,7 +55,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   return {
     books,
     searchQuery,
-    activeTypeLayout,
+    activeTypeLayout: skipHydrate(activeTypeLayout),
     currentPage,
     perPage,
     isLoading,
@@ -62,6 +63,6 @@ export const useCatalogStore = defineStore('catalog', () => {
     itemsWithPagination,
     fetchBooks,
     setTypeLayout,
-    setActiveStep,
+    setActiveStep
   };
 });

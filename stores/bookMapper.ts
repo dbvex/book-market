@@ -13,6 +13,6 @@ export const bookMapper = (books: IBookApi[]): IBook[] => {
     date: book.volumeInfo.publishedDate,
     country: book.saleInfo.country,
     imgUrl: getImgUrl(book.volumeInfo.imageLinks?.smallThumbnail ?? null),
-    title: book.volumeInfo.title,
+    title: book.volumeInfo.title
   }));
 };

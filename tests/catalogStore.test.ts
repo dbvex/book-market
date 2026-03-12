@@ -2,28 +2,28 @@ import { createPinia,setActivePinia } from 'pinia';
 import { beforeEach,describe, expect, it, vi } from 'vitest';
 import { ref } from 'vue';
 
-import { http } from '../shared/api';
-import { useCatalogStore } from '../stores/catalog';
-import type { IBook } from '../types/book';
-import { TypeLayout } from '../types/book';
+import { http } from '#shared/api';
+import { useCatalogStore } from '~/stores/catalog';
+import type { IBook } from '~/types/book';
+import { TypeLayout } from '~/types/book';
 
 // Mock @vueuse/core — avoid localStorage dependency in node environment
 vi.mock('@vueuse/core', () => ({
-  useLocalStorage: <T>(_key: string, initialValue: T) => ref(initialValue),
+  useLocalStorage: <T>(_key: string, initialValue: T) => ref(initialValue)
 }));
 
 // Mock HTTP client — avoid network calls in tests
-vi.mock('../shared/api', () => ({
+vi.mock('#shared/api', () => ({
   http: {
-    get: vi.fn(),
-  },
+    get: vi.fn()
+  }
 }));
 
 const mockBooks: IBook[] = [
   { id: '1', title: 'Vue.js Guide', authors: 'Evan You', date: '2023-01-01', country: 'US', imgUrl: '' },
   { id: '2', title: 'TypeScript Deep Dive', authors: 'Basarat Ali', date: '2022-06-15', country: 'US', imgUrl: '' },
   { id: '3', title: 'Nuxt Cookbook', authors: 'Debbie O', date: '2024-03-10', country: 'UK', imgUrl: '' },
-  { id: '4', title: 'Clean Code', authors: 'Robert Martin', date: '2008-08-01', country: 'US', imgUrl: '' },
+  { id: '4', title: 'Clean Code', authors: 'Robert Martin', date: '2008-08-01', country: 'US', imgUrl: '' }
 ];
 
 describe('useCatalogStore', () => {

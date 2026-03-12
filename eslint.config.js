@@ -7,15 +7,26 @@ export default withNuxt(
   // ── General rules (all files) ─────────────────────────────────────────────
   {
     plugins: {
-      'simple-import-sort': simpleImportSort,
+      'simple-import-sort': simpleImportSort
     },
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       'prefer-const': 'error',
+      'comma-dangle': ['error', 'never'],
       'no-console': ['warn', { allow: ['error', 'warn'] }],
       'no-warning-comments': ['warn', { terms: ['todo', 'fixme', 'hack', 'xxx'] }],
-    },
+      // Enforce aliases (~, @, #) instead of relative paths
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: ['../*'], message: 'Use ~ or @ alias instead of relative path (e.g. ~/stores/foo)' },
+            { group: ['./*'], message: 'Use ~ or @ alias instead of relative path (e.g. ~/components/Foo.vue)' }
+          ]
+        }
+      ]
+    }
   },
 
   // ── TypeScript rules (.ts + .vue only) ────────────────────────────────────
@@ -25,16 +36,16 @@ export default withNuxt(
       // Force `import type { X }` for type-only imports (autofix)
       '@typescript-eslint/consistent-type-imports': [
         'error',
-        { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports' }
       ],
       // Unused vars: prefix _ to suppress (e.g. _unused)
       '@typescript-eslint/no-unused-vars': [
         'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
       ],
-      // Disallow `any` — use `unknown` instead
-      '@typescript-eslint/no-explicit-any': 'warn',
-    },
+      '@typescript-eslint/comma-dangle': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn'
+    }
   },
 
   // ── Vue rules (.vue only) ─────────────────────────────────────────────────
@@ -43,18 +54,18 @@ export default withNuxt(
     rules: {
       'vue/html-self-closing': [
         'error',
-        { html: { void: 'always', normal: 'always', component: 'always' } },
+        { html: { void: 'always', normal: 'always', component: 'always' } }
       ],
       'vue/component-name-in-template-casing': ['error', 'PascalCase'],
       'vue/no-multi-spaces': 'error',
       'vue/define-props-declaration': ['error', 'type-based'],
       // v-html is XSS risk — use eslint-disable-next-line where intentional
-      'vue/no-v-html': 'warn',
-    },
+      'vue/no-v-html': 'warn'
+    }
   },
 
   // ── Ignore generated/build output ────────────────────────────────────────
   {
-    ignores: ['.nuxt/**', '.output/**', 'dist/**', 'node_modules/**'],
-  },
+    ignores: ['.nuxt/**', '.output/**', 'dist/**', 'node_modules/**', 'eslint.config.js']
+  }
 );

@@ -67,6 +67,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+
 import { http } from '#shared/api';
 import type { IBookApi } from '~/types/book';
 
@@ -76,6 +77,14 @@ const id = route.params.id as string;
 const { data: book, pending } = await useAsyncData(`book-${id}`, async () => {
   const res = await http.get<IBookApi>(`/volumes/${id}`);
   return res.data;
+});
+
+useSeoMeta({
+  title: () => book.value ? `${book.value.volumeInfo.title} — Book Market` : 'Book Market',
+  description: () => book.value?.volumeInfo.description?.slice(0, 160) ?? 'Book details on Book Market',
+  ogTitle: () => book.value?.volumeInfo.title,
+  ogDescription: () => book.value?.volumeInfo.description?.slice(0, 160),
+  ogImage: () => book.value?.volumeInfo.imageLinks?.thumbnail?.replace('http://', 'https://')
 });
 
 const coverUrl = computed(() => {
@@ -102,7 +111,7 @@ const buyLabel = computed(() => {
 const LANG_NAMES: Record<string, string> = {
   en: 'English', ru: 'Russian', de: 'German', fr: 'French',
   es: 'Spanish', ja: 'Japanese', zh: 'Chinese', pt: 'Portuguese',
-  ko: 'Korean', it: 'Italian', nl: 'Dutch',
+  ko: 'Korean', it: 'Italian', nl: 'Dutch'
 };
 const formatLanguage = (code: string) => LANG_NAMES[code] || code.toUpperCase();
 
@@ -160,8 +169,15 @@ const renderStars = (rating: number): string => {
 }
 
 .book-card { display: flex; gap: var(--space-9); align-items: flex-start; }
-.book-card__cover-wrap { flex-shrink: 0; width: var(--book-cover-width); }
-.book-card__cover { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md); display: block; }
+.book-card__cover-wrap {
+  flex-shrink: 0;
+  width: var(--book-cover-width);
+  background: var(--color-cover-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.book-card__cover { width: 100%; display: block; }
 .book-card__info { flex: 1; display: flex; flex-direction: column; gap: var(--space-5); }
 .book-card__header { display: flex; flex-direction: column; gap: var(--space-1-5); }
 

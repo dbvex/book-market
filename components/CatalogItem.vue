@@ -14,25 +14,43 @@
           <span v-if="item.country" class="catalog-item__tag">{{ item.country }}</span>
         </div>
       </div>
-      <NuxtLink class="catalog-item__link" :to="`/item/${item.id}`">View details →</NuxtLink>
+      <div class="catalog-item__actions">
+        <NuxtLink class="catalog-item__link" :to="`/item/${item.id}`">View details →</NuxtLink>
+        <button
+          class="catalog-item__cart"
+          :class="{ 'catalog-item__cart--active': inCart }"
+          :aria-label="inCart ? 'Remove from cart' : 'Add to cart'"
+          @click.prevent="cartStore.toggle({ id: item.id, title: item.title, authors: item.authors, imgUrl: item.imgUrl })"
+        >
+          {{ inCart ? '✓' : '+' }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCartStore } from '~/stores/cart';
 import { useCatalogStore } from '~/stores/catalog';
 import type { IBook } from '~/types/book';
 import { TypeLayout } from '~/types/book';
 
 const catalogStore = useCatalogStore();
-defineProps<{ item: IBook }>();
+const cartStore = useCartStore();
+const props = defineProps<{ item: IBook }>();
 
 const searchQuery = computed(() => catalogStore.searchQuery);
 const isListLayout = computed(() => catalogStore.activeTypeLayout === TypeLayout.List);
 
+// Defer cart state to client-only to prevent SSR hydration mismatch
+// (localStorage is unavailable on server, so we read it only after mount)
+const isMounted = ref(false);
+onMounted(() => { isMounted.value = true; });
+const inCart = computed(() => isMounted.value && cartStore.isInCart(props.item.id));
+
 const highlightText = (text: string, query: string): string => {
   if (!query || !text) return text || '';
-  const escaped = query.replace(/[.*+?^${}()|[\]\]/g, '\$&');
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return text.replace(new RegExp(escaped, 'gi'), (match) => `<span class="highlight">${match}</span>`);
 };
 
@@ -83,7 +101,7 @@ const formatYear = (dateStr: string): string => {
 .catalog-item__cover {
   width: 100%;
   height: var(--cover-height);
-  background: var(--color-bg);
+  background: var(--color-cover-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,6 +165,12 @@ const formatYear = (dateStr: string): string => {
   border-radius: var(--radius-full);
 }
 
+.catalog-item__actions {
+  display: flex;
+  gap: var(--space-1-5);
+  align-items: stretch;
+}
+
 .catalog-item__link {
   display: block;
   padding: var(--space-2) var(--space-3-5);
@@ -158,12 +182,45 @@ const formatYear = (dateStr: string): string => {
   font-weight: 500;
   text-align: center;
   transition: background var(--transition);
-  width: 100%;
+  flex: 1;
 
   &:hover {
     background: var(--color-primary-hover);
     text-decoration: none;
     color: var(--color-text-on-primary);
+  }
+}
+
+.catalog-item__cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--btn-size);
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+
+    &:hover {
+      background: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+      color: var(--color-text-on-primary);
+    }
   }
 }
 

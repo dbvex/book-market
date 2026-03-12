@@ -1,109 +1,143 @@
 # Book Market
 
-Online bookstore catalog built with Nuxt 3, Vue 3, TypeScript and Pinia.
+> Book catalog SPA — Nuxt 3 · Google Books API · SSR · Pinia · VueUse · Design Tokens
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)](https://www.typescriptlang.org/)
-[![Nuxt](https://img.shields.io/badge/Nuxt-3.x-00DC82)](https://nuxt.com/)
-[![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D)](https://vuejs.org/)
-[![VueUse](https://img.shields.io/badge/VueUse-11.x-41B883)](https://vueuse.org/)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)
+![Nuxt 3](https://img.shields.io/badge/Nuxt-3-00DC82?logo=nuxt.js&logoColor=white)
+![Pinia](https://img.shields.io/badge/Pinia-2-ffd859)
+![VueUse](https://img.shields.io/badge/VueUse-11-4FC08D)
+![Vitest](https://img.shields.io/badge/Vitest-27_tests-6E9F18)
 
-**[Live Demo →](https://bizhev.github.io/book-market/)**
+**[Live Demo →](https://book-market-dolet.vercel.app)**
 
 ---
 
-## Features
+## What this demonstrates
 
-- **Book search** — real-time filtering across title, author, date, country
-- **Dark mode** — persistent theme toggle via `useDark` (VueUse)
-- **Grid / List layout** — toggle persisted to localStorage via `useLocalStorage`
-- **Pagination** — configurable items per page
-- **Book detail page** — individual page with cover, metadata, rating, buy link
-- **Google Books API** — live data, 40 books per search query
-- **Search highlight** — matching text highlighted in results
+| Skill | How |
+|-------|-----|
+| **Nuxt 3 · SSR** | `useAsyncData` on catalog + detail page — renders on server, not in browser |
+| **Pinia** | `useCatalogStore` (search, filter, pagination) · `useCartStore` (cart with localStorage persist) |
+| **VueUse** | `useLocalStorage` · `useDark` · `watchDebounced` · `useBreakpoints` — all from `@vueuse/core` |
+| **SCSS Design Tokens** | Two-layer: `_tokens.scss` (SCSS vars) → `global.scss` (CSS vars) → components use `var()` only |
+| **Dark mode** | CSS `[data-theme="dark"]` attribute switching via `useDark`, zero JS color logic |
+| **TypeScript strict** | `strict: true`, typed API responses, no `any` |
+| **Vitest** | 27 unit tests — store logic, mapper, cart — coverage 70%+ |
 
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Nuxt 3.14, Vue 3 |
-| Language | TypeScript (strict) |
-| State | Pinia (Setup store) |
-| Utilities | VueUse — `useDark`, `useLocalStorage`, `watchDebounced` |
-| Styling | SCSS + CSS custom properties (runtime theming) |
-| HTTP | Axios with base URL config |
-| Testing | Vitest + @pinia/testing — 17 unit tests |
-| Build | Vite (via Nuxt) |
-| Deploy | GitHub Pages via npm + GitHub Actions |
+---
 
 ## Architecture
 
 ```
-Google Books API
-    ↓
-shared/api/http (axios instance)
-    ↓
-stores/catalog.ts (Pinia setup store) — fetchBooks → bookMapper → IBook[]
-    ↓
-computed getters — items (filtered) → itemsWithPagination (paginated)
-    ↓
-CatalogList → CatalogItem → SearchPanel
+pages/index.vue
+  └── useAsyncData('catalog-books')   ← SSR: server renders book list
+  └── watchDebounced(searchQuery)     ← VueUse: debounced re-fetch on search
+
+pages/item/[id].vue
+  └── useAsyncData(`book-${id}`)      ← SSR + cached by key
+  └── useSeoMeta(...)                 ← OG tags from book data
+
+stores/catalog.ts (Pinia)
+  └── fetchBooks()                    ← calls shared/api/http
+  └── items (computed)                ← client-side filter
+  └── itemsWithPagination (computed)  ← paginated slice
+  └── activeTypeLayout                ← useLocalStorage (VueUse)
+
+stores/cart.ts (Pinia)
+  └── items                           ← useLocalStorage (VueUse) — persists across sessions
+  └── add / remove / toggle / clear
+
+composables/useAdaptiveLayout.ts
+  └── useBreakpoints(tailwind)        ← auto-switch grid↔list on mobile (<768px)
+
+assets/styles/
+  _tokens.scss   ← SCSS vars ($color-primary, $space-4, ...)
+  global.scss    ← CSS custom properties :root + [data-theme="dark"]
+  _base.scss     ← reset, skeleton-pulse @keyframes (global utility)
 ```
 
-Key decisions:
-- **bookMapper** — transforms raw `IBookApi` into clean `IBook` domain model, decoupling UI from API shape
-- **Pinia setup store** — `items` and `itemsWithPagination` as computed keep components thin
-- **CSS custom properties** — theming via `[data-theme="dark"]` overrides; SCSS used only for compile-time utilities
-- **VueUse** — `watchDebounced` replaces manual `setTimeout`, `useLocalStorage` persists layout preference
-- **TypeScript strict** — all types in `types/book.ts`
+**Why `useAsyncData` instead of `onMounted` fetch:**
+Page content is rendered on the server. Google indexes real books, not a spinner.
+`key = book-${id}` means Nuxt reuses the cached response on client navigation.
+
+**Why two-layer design tokens (SCSS → CSS vars):**
+SCSS `_tokens.scss` is the single source of truth for raw values.
+`global.scss` maps them to CSS custom properties on `:root`.
+Dark theme overrides only a subset of CSS vars on `[data-theme="dark"]` — no SCSS recompile needed.
+
+**Why `useLocalStorage` from VueUse:**
+Handles serialization, SSR hydration safety, and cross-tab sync.
+Cart + layout preference survive refresh without extra boilerplate.
+
+---
+
+## Tech Stack
+
+| | Tech | Version |
+|--|------|---------|
+| Framework | Nuxt 3 | 3.14 |
+| UI | Vue 3 Composition API | 3.5 |
+| State | Pinia (setup stores) | 2.3 |
+| Composables | VueUse | 11 |
+| Language | TypeScript strict | 5.x |
+| Styles | SCSS + CSS Custom Properties | sass 1.82 |
+| Tests | Vitest + Vue Test Utils + @pinia/testing | 2.x |
+| API | Google Books API v1 | — |
+| Deploy | Vercel | — |
+
+---
 
 ## Getting Started
 
 ```bash
-# Install dependencies
+git clone https://github.com/doletbizhev/book-market.git
+cd book-market
+
 npm install
 
-# Run development server (http://localhost:3000)
-npm run dev
-
-# Run tests
-npm test
-
-# Build static site
-npm run generate
-```
-
-### Environment
-
-```bash
+# Add Google Books API key
 cp .env.example .env
-# Set VITE_GOOGLE_BOOKS_API_KEY=your_key_here
+# VITE_GOOGLE_BOOKS_API_KEY=your_key_here
+
+npm run dev          # → http://localhost:3000/book-market/
+npm test             # run all unit tests
+npm run test:coverage  # tests + coverage report
+npm run generate     # static build for Vercel
 ```
+
+---
 
 ## Project Structure
 
 ```
-├── app.vue                   # Root layout with dark mode toggle
-├── components/
-│   ├── CatalogItem.vue       # Book card with search highlight
-│   ├── CatalogList.vue       # Grid/list wrapper with skeleton loading
-│   ├── SearchPanel.vue       # Search input + layout toggle
-│   ├── LayoutToggle.vue      # Grid/List toggle buttons
-│   ├── AppPagination.vue     # Pagination controls
-│   └── SkeletonCard.vue      # Loading skeleton
+book-market/
+├── app.vue                      # Root: dark mode + cart badge
 ├── pages/
-│   ├── index.vue             # Catalog page
-│   └── item/[id].vue         # Book detail page
+│   ├── index.vue                # Catalog: useAsyncData + debounced search
+│   └── item/[id].vue            # Detail: useAsyncData + useSeoMeta
+├── components/
+│   ├── CatalogItem.vue          # Book card: highlight + add to cart
+│   ├── CatalogList.vue          # Grid/List wrapper + skeleton state
+│   ├── SearchPanel.vue          # Search input (watchDebounced)
+│   ├── LayoutToggle.vue         # Grid/List toggle
+│   ├── AppPagination.vue        # Pagination controls
+│   └── SkeletonCard.vue         # Loading skeleton (global .skeleton-pulse)
 ├── stores/
-│   ├── catalog.ts            # Pinia setup store (state, computed, actions)
-│   └── bookMapper.ts         # IBookApi → IBook transformer
-├── types/
-│   └── book.ts               # TypeScript interfaces and enums
-├── shared/
-│   └── api/                  # Axios HTTP client
+│   ├── catalog.ts               # Pinia: list, search filter, pagination
+│   ├── cart.ts                  # Pinia: cart with useLocalStorage persist
+│   └── bookMapper.ts            # IBookApi → IBook domain mapper
+├── composables/
+│   └── useAdaptiveLayout.ts     # useBreakpoints: auto grid↔list on mobile
+├── shared/api/
+│   └── http.ts                  # Axios instance — Google Books API
+├── types/book.ts                # TypeScript interfaces + enums
 ├── assets/styles/
-│   ├── global.scss           # CSS custom properties + dark theme tokens
-│   └── _variables.scss       # SCSS compile-time variables
+│   ├── _tokens.scss             # Design tokens source (SCSS vars)
+│   ├── global.scss              # CSS custom properties + dark theme
+│   ├── _base.scss               # Reset + skeleton-pulse utility
+│   └── _mixins.scss             # Breakpoint mixins
 └── tests/
-    ├── bookMapper.test.ts    # Data mapper unit tests (5 tests)
-    └── catalogStore.test.ts  # Pinia store unit tests (12 tests)
+    ├── bookMapper.test.ts       # 5 tests — mapper logic
+    ├── catalogStore.test.ts     # 12 tests — filter, pagination, layout
+    └── cartStore.test.ts        # 10 tests — add/remove/toggle/persist
 ```

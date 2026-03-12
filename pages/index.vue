@@ -21,6 +21,13 @@ import AppPagination from '~/components/AppPagination.vue';
 import CatalogList from '~/components/CatalogList.vue';
 import SearchPanel from '~/components/SearchPanel.vue';
 
+useSeoMeta({
+  title: 'Book Market — Browse & Discover Books',
+  description: 'Explore thousands of books via Google Books API. Built with Nuxt 3, Vue 3, Pinia and VueUse.',
+  ogTitle: 'Book Market',
+  ogDescription: 'Browse and discover books with live search, dark mode, and cart.'
+});
+
 const catalogStore = useCatalogStore();
 
 const totalPages = computed(() =>
