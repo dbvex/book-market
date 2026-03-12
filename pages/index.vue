@@ -34,7 +34,10 @@ const totalPages = computed(() =>
   Math.ceil((catalogStore.items?.length ?? 0) / catalogStore.perPage)
 );
 
-const { pending } = useAsyncData('catalog-books', () => catalogStore.fetchBooks(), { server: false });
+const { pending } = useAsyncData('catalog-books', () => catalogStore.fetchBooks(), {
+  server: false,
+  getCachedData: () => undefined
+});
 
 const isInitialLoad = computed(() => pending.value);
 const isRefetching = computed(() => !pending.value && catalogStore.isLoading);
