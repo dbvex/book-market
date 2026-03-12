@@ -6,9 +6,6 @@ export default defineNuxtConfig({
     baseURL: '/book-market/'
   },
   modules: ['@pinia/nuxt', '@nuxt/eslint'],
-  routeRules: {
-    '/': { ssr: false }
-  },
   css: ['~/assets/styles/main.scss'],
   vite: {
     optimizeDeps: {
