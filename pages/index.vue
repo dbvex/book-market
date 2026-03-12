@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { watchDebounced } from '@vueuse/core';
-
 import { useCatalogStore } from '@/stores/catalog';
 import AppPagination from '~/components/AppPagination.vue';
 import CatalogList from '~/components/CatalogList.vue';
@@ -45,14 +43,14 @@ onMounted(async () => {
 const isInitialLoad = computed(() => pending.value);
 const isRefetching = computed(() => !pending.value && catalogStore.isLoading);
 
-watchDebounced(
-  () => catalogStore.searchQuery,
-  (query) => {
+let searchTimer: ReturnType<typeof setTimeout> | null = null;
+watch(() => catalogStore.searchQuery, (query) => {
+  if (searchTimer) clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
     catalogStore.currentPage = 1;
     catalogStore.fetchBooks(query || 'Nuxt');
-  },
-  { debounce: 400 }
-);
+  }, 400);
+});
 </script>
 
 <style scoped lang="scss">
