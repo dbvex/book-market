@@ -1,5 +1,21 @@
 <template>
   <div class="page">
+    <div
+      v-if="catalogStore.apiNotice"
+      class="api-notice"
+      :class="`api-notice--${catalogStore.apiNotice.type}`"
+    >
+      <span class="api-notice__icon">{{ catalogStore.apiNotice.type === 'info' ? '📊' : '⚠️' }}</span>
+      <span class="api-notice__message">{{ catalogStore.apiNotice.message }}</span>
+      <button
+        v-if="catalogStore.apiNotice.type === 'error'"
+        class="api-notice__action"
+        @click="switchToMock"
+      >
+        Use Mock Data
+      </button>
+      <button class="api-notice__close" aria-label="Dismiss" @click="catalogStore.apiNotice = null">✕</button>
+    </div>
     <SearchPanel :loading="isInitialLoad" />
     <CatalogList :initial-load="isInitialLoad" :refetching="isRefetching" />
     <div class="pagination-area">
@@ -51,6 +67,12 @@ watch(() => catalogStore.searchQuery, (query) => {
     catalogStore.fetchBooks(query || 'Nuxt');
   }, 400);
 });
+
+async function switchToMock() {
+  catalogStore.useMock = true;
+  catalogStore.apiNotice = null;
+  await catalogStore.fetchBooks();
+}
 </script>
 
 <style scoped lang="scss">
@@ -65,5 +87,63 @@ watch(() => catalogStore.searchQuery, (query) => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.api-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-4) 0;
+  border-radius: var(--radius-base);
+  font-size: var(--text-sm);
+
+  &--info {
+    background: var(--color-badge-bg);
+    border: 1px solid var(--color-primary);
+
+    .api-notice__message { color: var(--color-badge-text); }
+    .api-notice__close   { color: var(--color-badge-text); }
+  }
+
+  &--error {
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error);
+
+    .api-notice__message { color: var(--color-error); }
+    .api-notice__close   { color: var(--color-error); }
+  }
+
+  &__icon { flex-shrink: 0; }
+
+  &__message {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  &__action {
+    flex-shrink: 0;
+    padding: var(--space-1-5) var(--space-3);
+    background: var(--color-error);
+    color: var(--color-text-on-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition);
+
+    &:hover { opacity: 0.85; }
+  }
+
+  &__close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-base);
+    padding: 0 var(--space-1);
+    line-height: 1;
+  }
 }
 </style>

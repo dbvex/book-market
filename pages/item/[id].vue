@@ -69,12 +69,16 @@
 import { useRoute } from 'vue-router';
 
 import { http } from '#shared/api';
+import { getMockBookApi } from '~/shared/mocks/generateBooks';
 import type { IBookApi } from '~/types/book';
+
+definePageMeta({ ssr: false });
 
 const route = useRoute();
 const id = route.params.id as string;
 
 const { data: book, pending } = await useAsyncData(`book-${id}`, async () => {
+  if (id.startsWith('mock-')) return getMockBookApi(id);
   const res = await http.get<IBookApi>(`/volumes/${id}`);
   return res.data;
 });

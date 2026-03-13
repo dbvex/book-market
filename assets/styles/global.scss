@@ -21,6 +21,8 @@
   --color-border:          #{t.$color-border};
   --color-highlight:       #{t.$color-highlight};
   --color-cover-bg:        #{t.$color-cover-bg};
+  --color-error:           #{t.$color-error};
+  --color-error-bg:        #{t.$color-error-bg};
   --color-badge-bg:        #{t.$color-badge-bg};
   --color-badge-text:      #{t.$color-badge-text};
   --color-placeholder:     #{t.$color-placeholder};
@@ -100,6 +102,8 @@
   --color-text-secondary: #{t.$color-text-secondary-dark};
   --color-border:         #{t.$color-border-dark};
   --color-highlight:      #{t.$color-highlight-dark};
+  --color-error:          #{t.$color-error-dark};
+  --color-error-bg:       #{t.$color-error-bg-dark};
 
   --skeleton-base:  #{t.$skeleton-base-dark};
   --skeleton-shine: #{t.$skeleton-shine-dark};
