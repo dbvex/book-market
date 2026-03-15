@@ -8,7 +8,7 @@
 ![VueUse](https://img.shields.io/badge/VueUse-11-4FC08D)
 ![Vitest](https://img.shields.io/badge/Vitest-27_tests-6E9F18)
 
-**[Live Demo →](https://bizhev.github.io/book-market/)**
+**[Live Demo →](https://dbvex.github.io/book-market/)**
 
 ---
 
@@ -90,7 +90,7 @@ Cart + layout preference survive refresh without extra boilerplate.
 ## Getting Started
 
 ```bash
-git clone https://github.com/doletbizhev/book-market.git
+git clone https://github.com/dbvex/book-market.git
 cd book-market
 
 npm install
